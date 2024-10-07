@@ -24,7 +24,7 @@ public:
 	{
 		if (!entityIdToIndex_.contains(id_))
 			return;
-		int temp;
+		int temp = -1;
 		std::swap(components_[entityIdToIndex_[id_]], components_.back());
 		for (auto it = entityIdToIndex_.begin(); it != entityIdToIndex_.end(); ++it)
 		{
@@ -35,6 +35,8 @@ public:
 				break;
 			}
 		}
+		if(temp == -1)
+			return;
 		components_.pop_back();
 		entityIdToIndex_.erase(temp);
 	}

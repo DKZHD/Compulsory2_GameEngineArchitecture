@@ -9,8 +9,9 @@
 #include <glm/ext/matrix_float4x4.hpp>
 
 #include "../ComponentManager/ComponentHandler.h"
+#include "../Components & Systems/AI/AIMovement.h"
 #include "../Components & Systems/Health.h"
-#include "../Components & Systems/Mesh.h"
+#include "../Components & Systems/Rendering/Mesh.h"
 #include "../Components & Systems/Position.h"
 
 GLFWwindow* Window::Init(int width, int height, const char* title, ComponentManager& cm, EntityManager& em)
@@ -102,7 +103,9 @@ void Window::MousePressCallback(GLFWwindow* window, int key, int action, int mod
 		switch (key)
 		{
 		case GLFW_MOUSE_BUTTON_RIGHT:
-			entity_manager->AddPlayer(glm::vec2(pos.x,pos.y), glm::vec2(0.2f, 0.2f), glm::vec3(1.f), *component_manager_);
+			entity_manager->AddPlayer(glm::vec2(pos.x,pos.y), glm::vec2(0.2f, 0.2f), glm::vec3(1.f,0.f,0.f), *component_manager_);
+			component_manager_->RegisterComponent<AIMovementComponent>(Entity::globalId_ - 1);
+			component_manager_->RegisterComponent<AICombatComponent>(Entity::globalId_ - 1);
 			break;
 		case GLFW_MOUSE_BUTTON_LEFT:
 			ClickOnEntity(pos);
@@ -123,8 +126,10 @@ void Window::ClickOnEntity(glm::vec2 pos)
 		MeshPropertyComponent* mpc = component_manager_->GetComponent<MeshPropertyComponent>(element.id_);
 		if(pos.x > pc->position.x-mpc->scale.x*0.5f&&pos.x<pc->position.x+mpc->scale.x/0.5f&& pos.y > pc->position.y - mpc->scale.y * 0.5f && pos.y < pc->position.y + mpc->scale.y * 0.5f)
 		{
-			std::cout << "Entity Clicked With ID: " << element.id_ << '\n';
-			entity_manager->activeIndex = element.id_;
+			/*std::cout << "Entity Clicked With ID: " << element.id_ << '\n';
+			entity_manager->activeIndex = element.id_;*/
+			if (component_manager_->HasComponent<HealthComponent>(element.id_))
+				component_manager_->GetComponent<HealthComponent>(element.id_)->Health -= 20;
 			break;
 		}
 	}

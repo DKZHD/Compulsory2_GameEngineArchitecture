@@ -2,6 +2,8 @@
 #include <array>
 #include <memory>
 
+class AICombatSystem;
+class AIMovementSystem;
 class RenderSystem;
 class HealthSystem;
 class MovementSystem;
@@ -15,10 +17,12 @@ public:
 	SystemManager(unsigned program, ComponentManager& cm, EntityManager& em);
 	void Update(float deltaTime, std::atomic_bool& isRemoving) const;
 	MovementSystem& GetMovementSystem() const;
+	AIMovementSystem& GetAIMovementSystem() const;
+	AICombatSystem& GetAICombatSystem() const;
 	HealthSystem& GetHealthSystem() const;
 	RenderSystem& GetRenderSystem() const;
 private:
-	std::array<std::unique_ptr<ISystem>, 3> systems_;
+	std::array<std::unique_ptr<ISystem>, 5> systems_;
 	EntityManager& em;
 	ComponentManager& cm;
 };

@@ -15,6 +15,13 @@ void Timer::Reset()
 	timer_ = 0.f;
 }
 
+void Timer::Restart()
+{
+	Stop();
+	timer_ = 0.f;
+	activated = true;
+}
+
 void Timer::Stop()
 {
 	activated = false;

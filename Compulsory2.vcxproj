@@ -136,7 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dependencies\includes\glad.c" />
-    <ClCompile Include="src\Components &amp; Systems\Mesh.cpp" />
+    <ClCompile Include="src\Components &amp; Systems\AI\AIBehaviour.cpp" />
+    <ClCompile Include="src\Components &amp; Systems\Rendering\Mesh.cpp" />
     <ClCompile Include="src\Components &amp; Systems\SystemManager\SystemManager.cpp" />
     <ClCompile Include="src\Shader\ShaderLoader.cpp" />
     <ClCompile Include="src\EntityManager\EntityManager.cpp" />
@@ -145,13 +146,15 @@
     <ClCompile Include="src\Timer\TimerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Components &amp; Systems\AI\AIBehaviour.h" />
+    <ClInclude Include="src\Components &amp; Systems\AI\AIMovement.h" />
     <ClInclude Include="src\Components &amp; Systems\SystemManager\SystemManager.h" />
     <ClInclude Include="src\Shader\ShaderLoader.h" />
     <ClInclude Include="src\Components &amp; Systems\Health.h" />
-    <ClInclude Include="src\Components &amp; Systems\Mesh.h" />
+    <ClInclude Include="src\Components &amp; Systems\Rendering\Mesh.h" />
     <ClInclude Include="src\Components &amp; Systems\Movement.h" />
     <ClInclude Include="src\Components &amp; Systems\Position.h" />
-    <ClInclude Include="src\Components &amp; Systems\Render.h" />
+    <ClInclude Include="src\Components &amp; Systems\Rendering\Render.h" />
     <ClInclude Include="src\Components &amp; Systems\SystemBase.h" />
     <ClInclude Include="src\EntityManager\EntityManager.h" />
     <ClInclude Include="src\ComponentManager\ComponentHandler.h" />

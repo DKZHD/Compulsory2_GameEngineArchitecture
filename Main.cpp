@@ -1,19 +1,18 @@
-#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "src/EntityManager/EntityManager.h"
-#include "src/ComponentManager/ComponentHandler.h"
 #include "src/Components & Systems/Movement.h"
-#include "src/Components & Systems/Render.h"
 #include "src/Shader/ShaderLoader.h"
 #include "src/Timer/TimerManager.h"
 #include "src/Window/Window.h"
-#include <print>
 #include <thread>
+
+#include "src/Components & Systems/AI/AIBehaviour.h"
+#include "src/Components & Systems/AI/AIMovement.h"
 #include "src/Components & Systems/SystemManager/SystemManager.h"
 
 
-void ProcessInput(GLFWwindow* window, EntityManager& em, ComponentManager& cm);
+void ProcessInput(GLFWwindow* window, const EntityManager& em, ComponentManager& cm);
 
 int main()
 {
@@ -27,25 +26,28 @@ int main()
 
 	em.AddPlayer(glm::vec2(0.5f,0.f),glm::vec2(0.2f,0.2f),glm::vec3(1.f),cm);
 	em.AddPlayer(glm::vec2(-0.5f,0.f),glm::vec2(0.2f,0.2f),glm::vec3(1.f,0.f,0.f),cm);
+	cm.RegisterComponent<AIMovementComponent>(em.GetEntityID(1));
+	cm.RegisterComponent<AICombatComponent>(em.GetEntityID(1));
 
-	std::thread thread([&SM, &window, &ChangingEntities]()
-		{
-			SM.GetMovementSystem().beingHandled = true;	
-			float lastFrame = static_cast<float>(glfwGetTime());
-			float deltaTime = 0.f;
+	//std::thread thread([&SM, &window, &ChangingEntities]()
+	//	{
+	//		SM.GetMovementSystem().beingHandled = true;	
+	//		float lastFrame = static_cast<float>(glfwGetTime());
+	//		float deltaTime = 0.f;
 
-			while(!glfwWindowShouldClose(window))
-			{
-				float currentFrame = static_cast<float>(glfwGetTime());
-				deltaTime = currentFrame - lastFrame;
-				lastFrame = currentFrame;
-				if (ChangingEntities)
-					continue;
-				SM.GetMovementSystem().MoveAllEntities(deltaTime);
-			}
-		});
-	thread.detach();
+	//		while(!glfwWindowShouldClose(window))
+	//		{
+	//			float currentFrame = static_cast<float>(glfwGetTime());
+	//			deltaTime = currentFrame - lastFrame;
+	//			lastFrame = currentFrame;
+	//			if (ChangingEntities)
+	//				continue;
+	//			SM.GetMovementSystem().MoveAllEntities(deltaTime);
+	//		}
+	//	});
+	//thread.detach();
 
+	bool first = true;
 	while (!glfwWindowShouldClose(window))
 	{
 		TimeManager::GetInstance().Update();
@@ -60,7 +62,7 @@ int main()
 	}
 }
 
-void ProcessInput(GLFWwindow* window, EntityManager& em, ComponentManager& cm)
+void ProcessInput(GLFWwindow* window, const EntityManager& em, ComponentManager& cm)
 {
 	MovementSystem::ResetAllVelocities(cm);
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE))

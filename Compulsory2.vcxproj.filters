@@ -27,7 +27,7 @@
     <ClCompile Include="src\Shader\ShaderLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components &amp; Systems\Mesh.cpp">
+    <ClCompile Include="src\Components &amp; Systems\Rendering\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\Window.cpp">
@@ -37,6 +37,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Components &amp; Systems\SystemManager\SystemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Components &amp; Systems\AI\AIBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +62,10 @@
     <ClInclude Include="src\Components &amp; Systems\Movement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components &amp; Systems\Mesh.h">
+    <ClInclude Include="src\Components &amp; Systems\Rendering\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components &amp; Systems\Render.h">
+    <ClInclude Include="src\Components &amp; Systems\Rendering\Render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Shader\ShaderLoader.h">
@@ -75,6 +78,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components &amp; Systems\SystemManager\SystemManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components &amp; Systems\AI\AIMovement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components &amp; Systems\AI\AIBehaviour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

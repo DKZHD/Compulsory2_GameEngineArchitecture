@@ -1,11 +1,14 @@
 #pragma once
 #include <vector>
 
+struct AICombatComponent;
+
 class Timer
 {
 public:
 	void Start(float duration);
 	void Reset();
+	void Restart();
 	void Stop();
 	bool IsActive() const;
 	void Update(float deltaTime);
@@ -20,6 +23,7 @@ private:
 	bool activated = false;
 };
 
+
 class TimeManager
 {
 public:
@@ -32,9 +36,9 @@ public:
 		return instance;
 	}
 	float GetDeltaTime() const { return deltaTime; }
-	Timer& operator[](const int index)
+	Timer& operator[](const int handle)
 	{
-		return timers_[index];
+		return timers_[handle];
 	}
 private:
 	std::vector<Timer> timers_;

@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include <glm/vec2.hpp>
-
 #include "Position.h"
 #include "SystemBase.h"
 #include "../ComponentManager/ComponentHandler.h"
+#include "AI/AIMovement.h"
+
 
 struct MovementComponent
 {
@@ -23,10 +24,9 @@ public:
 	{
 		for(unsigned i = 0;i<Entity::globalId_;i++)
 		{
-			if(Entity::globalId_==0)
+			if(Entity::globalId_==0 || component_manager_->HasComponent<AIMovementComponent>(i) || i >= Entity::globalId_)
 				return;
-			if(i<Entity::globalId_)
-				Update(i,deltaTime);
+			Update(i,deltaTime);
 		}
 	}
 	static glm::vec2 GetPosition(unsigned entityId_, ComponentManager& cm)

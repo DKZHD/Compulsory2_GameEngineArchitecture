@@ -1,10 +1,10 @@
 #include "EntityManager.h"
 #include "../ComponentManager/ComponentHandler.h"
 #include "../Components & Systems/Health.h"
-#include "../Components & Systems/Mesh.h"
+#include "../Components & Systems/Rendering/Mesh.h"
 #include "../Components & Systems/Movement.h"
 #include "../Components & Systems/Position.h"
-#include "../Components & Systems/Render.h"
+#include "../Components & Systems/Rendering/Render.h"
 
 void EntityManager::AddEntity()
 {
