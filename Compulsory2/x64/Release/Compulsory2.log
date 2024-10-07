@@ -1,0 +1,9 @@
+﻿  TimerManager.cpp
+D:\GameEngineArchitecture\Compulsory2\src\Timer\TimerManager.cpp(39,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\GameEngineArchitecture\Compulsory2\src\Timer\TimerManager.cpp(54,23): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Generating code
+  3 of 1282 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Compulsory2.vcxproj -> D:\GameEngineArchitecture\Compulsory2\x64\Release\Compulsory2.exe
