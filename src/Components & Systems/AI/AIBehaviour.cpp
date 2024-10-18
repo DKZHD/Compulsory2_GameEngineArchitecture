@@ -1,14 +1,15 @@
 ﻿#include "AIBehaviour.h"
 #include "AIMovement.h"
-#include "../Health.h"
+#include "../Misc/Health.h"
 #include "../../ComponentManager/ComponentHandler.h"
 #include "../../Timer/TimerManager.h"
+#include "../../Window/Window.h"
 #include "../Rendering/Mesh.h"
 
 
 void AICombatSystem::Update(unsigned entityId_, float deltaTime)
 {
-	if (!component_manager_->HasComponent<AICombatComponent>(entityId_))
+	if (!component_manager_->HasComponents<AICombatComponent>(entityId_))
 		return;
 	AICombatComponent* AIC = component_manager_->GetComponent<AICombatComponent>(entityId_);
 	if (!CheckCollisionToPlayer(component_manager_->GetComponent<PositionComponent>(entityId_)->position, component_manager_->GetComponent<MeshPropertyComponent>(entityId_)->scale))
@@ -50,7 +51,7 @@ void AICombatSystem::ApplyDamage(unsigned entityId_)
 {
 	AICombatComponent* AIC = component_manager_->GetComponent<AICombatComponent>(entityId_);
 	component_manager_->GetComponent<HealthComponent>(0)->Health -= AIC->damage;
-	std::cout << "Player Health is now: " << component_manager_->GetComponent<HealthComponent>(0)->Health << '\n';
+	Window::GetWindowInstance().UpdateTerminal();
 	if(component_manager_->GetComponent<HealthComponent>(0)->Health==0)
 	{
 		std::cout << "Player is now dead!" << '\n';

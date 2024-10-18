@@ -7,7 +7,9 @@ class Timer
 {
 public:
 	void Start(float duration);
+	// Stops and resets time elapsed for this timer
 	void Reset();
+	// Resets timer, then start it again
 	void Restart();
 	void Stop();
 	bool IsActive() const;
@@ -27,6 +29,7 @@ private:
 class TimeManager
 {
 public:
+	// Updates deltaTime and all timers
 	void Update();
 	int AddTimer(float duration);
 	void RemoveTimer(int index);

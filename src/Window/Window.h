@@ -18,6 +18,7 @@ public:
 		static Window window;
 		return window;
 	}
+	void UpdateTerminal();
 	ComponentManager* component_manager_;
 	EntityManager* entity_manager;
 private:

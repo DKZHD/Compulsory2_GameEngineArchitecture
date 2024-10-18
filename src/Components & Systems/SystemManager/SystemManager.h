@@ -2,6 +2,7 @@
 #include <array>
 #include <memory>
 
+class InventorySystem;
 class AICombatSystem;
 class AIMovementSystem;
 class RenderSystem;
@@ -15,14 +16,15 @@ class SystemManager
 {
 public:
 	SystemManager(unsigned program, ComponentManager& cm, EntityManager& em);
-	void Update(float deltaTime, std::atomic_bool& isRemoving) const;
+	void Update(float deltaTime) const;
 	MovementSystem& GetMovementSystem() const;
 	AIMovementSystem& GetAIMovementSystem() const;
 	AICombatSystem& GetAICombatSystem() const;
 	HealthSystem& GetHealthSystem() const;
 	RenderSystem& GetRenderSystem() const;
+	InventorySystem& GetInventorySystem() const;
 private:
-	std::array<std::unique_ptr<ISystem>, 5> systems_;
+	std::array<std::unique_ptr<ISystem>, 6> systems_;
 	EntityManager& em;
 	ComponentManager& cm;
 };

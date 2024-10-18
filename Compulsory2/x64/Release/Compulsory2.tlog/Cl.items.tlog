@@ -1,5 +1,8 @@
 D:\GameEngineArchitecture\Compulsory2\Dependencies\includes\glad.c;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\glad.obj
-D:\GameEngineArchitecture\Compulsory2\src\Components & Systems\Mesh.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\Mesh.obj
+D:\GameEngineArchitecture\Compulsory2\src\Components & Systems\Misc\Inventory.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\Inventory.obj
+D:\GameEngineArchitecture\Compulsory2\src\Components & Systems\AI\AIBehaviour.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\AIBehaviour.obj
+D:\GameEngineArchitecture\Compulsory2\src\Components & Systems\Rendering\Mesh.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\Mesh.obj
+D:\GameEngineArchitecture\Compulsory2\src\Components & Systems\SystemManager\SystemManager.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\SystemManager.obj
 D:\GameEngineArchitecture\Compulsory2\src\Shader\ShaderLoader.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\ShaderLoader.obj
 D:\GameEngineArchitecture\Compulsory2\src\EntityManager\EntityManager.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\EntityManager.obj
 D:\GameEngineArchitecture\Compulsory2\Main.cpp;D:\GameEngineArchitecture\Compulsory2\Compulsory2\x64\Release\Main.obj

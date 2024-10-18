@@ -1,5 +1,4 @@
 #pragma once
-#include <atomic>
 #include <vector>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -24,7 +23,6 @@ public:
 	unsigned GetActiveEntityID() const { return activeIndex; }
 	void ChangeActiveEntity();
 	void RemoveEntity(unsigned index, ComponentManager& cm);
-	std::atomic_bool* entitiesChanging_;
 
 private:
 	friend class SystemManager;

@@ -1,18 +1,19 @@
 ﻿#include "Mesh.h"
 #include "Render.h"
-#include "../Position.h"
+#include "../Position/Position.h"
 #include "../../ComponentManager/ComponentHandler.h"
 
 void MeshGenerationSystem::CreateEntitySquare(unsigned entityId_, glm::vec2 pos, glm::vec2 scale, glm::vec3 color, ComponentManager& cm)
 {
-	if (!cm.HasComponent<BufferComponent>(entityId_) || !cm.HasComponent<RenderComponent>(entityId_) || !cm.HasComponent<PositionComponent>(entityId_))
+	if (!cm.HasComponents<BufferComponent,RenderComponent,PositionComponent>(entityId_))
 	{
 		std::printf("Can't create mesh as Entity doesn't have required components!\n");
 		return;
 	}
-	if (cm.HasComponent<MeshPropertyComponent>(entityId_))
+	if (cm.HasComponents<MeshPropertyComponent>(entityId_))
 		cm.GetComponent<MeshPropertyComponent>(entityId_)->scale = scale;
 	cm.GetComponent<PositionComponent>(entityId_)->position = pos;
+
 	BufferComponent* bc = cm.GetComponent<BufferComponent>(entityId_);
 	bc->vertices_.reserve(4);
 	bc->vertices_.emplace_back(glm::vec2(-0.5f, -0.5f),color);

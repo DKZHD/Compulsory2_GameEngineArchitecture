@@ -1,18 +1,17 @@
 #include "Window.h"
-
-#include <functional>
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec4.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_float4x4.hpp>
-
+#include <print>
 #include "../ComponentManager/ComponentHandler.h"
 #include "../Components & Systems/AI/AIMovement.h"
-#include "../Components & Systems/Health.h"
+#include "../Components & Systems/Misc/Health.h"
+#include "../Components & Systems/Misc/Inventory.h"
 #include "../Components & Systems/Rendering/Mesh.h"
-#include "../Components & Systems/Position.h"
+#include "../Components & Systems/Position/Position.h"
 
 GLFWwindow* Window::Init(int width, int height, const char* title, ComponentManager& cm, EntityManager& em)
 {
@@ -69,21 +68,27 @@ void Window::InputKeyCallback(GLFWwindow* window, int key, int scancode, int act
 		switch (key)
 		{
 		case GLFW_KEY_R:
-			HealthSystem::DecreaseHealth(0,10,*component_manager_);
-			printf("Health is now: %d\n", HealthSystem::GetHealth(0,*component_manager_));
+			InventorySystem::AddItem(Rare,*component_manager_);
 			break;
-		case GLFW_KEY_T:
-			glm::vec3 color;
-			std::cout << "Input Color: ";
-			std::cin >> color.x >> color.y >> color.z;
-			entity_manager->AddPlayer(glm::vec2(0.f), glm::vec2(0.2f, 0.2f), color, *component_manager_);
+		case GLFW_KEY_L:
+			InventorySystem::AddItem(Legendary,*component_manager_);
+			break;
+		case GLFW_KEY_F:
+			HealthSystem::AddHealth(0,40,*component_manager_);
 			break;
 		case GLFW_KEY_TAB:
 			entity_manager->ChangeActiveEntity();
 			break;
+		case GLFW_KEY_1:
+			InventorySystem::SetActiveIndex(0, *component_manager_);
+			break;
+		case GLFW_KEY_2:
+			InventorySystem::SetActiveIndex(1, *component_manager_);
+			break;
+
 			default:
 				break;
-
+			
 		}
 	}
 }
@@ -120,18 +125,33 @@ void Window::ClickOnEntity(glm::vec2 pos)
 {
 	for (auto element : entity_manager->entities_)
 	{
-		if(!component_manager_->HasComponent<PositionComponent>(element.id_)||!component_manager_->HasComponent<MeshPropertyComponent>(element.id_))
+		if(!component_manager_->HasComponents<PositionComponent>(element.id_)||!component_manager_->HasComponents<MeshPropertyComponent>(element.id_))
 			continue;
 		PositionComponent* pc = component_manager_->GetComponent<PositionComponent>(element.id_);
 		MeshPropertyComponent* mpc = component_manager_->GetComponent<MeshPropertyComponent>(element.id_);
 		if(pos.x > pc->position.x-mpc->scale.x*0.5f&&pos.x<pc->position.x+mpc->scale.x/0.5f&& pos.y > pc->position.y - mpc->scale.y * 0.5f && pos.y < pc->position.y + mpc->scale.y * 0.5f)
 		{
-			/*std::cout << "Entity Clicked With ID: " << element.id_ << '\n';
-			entity_manager->activeIndex = element.id_;*/
-			if (component_manager_->HasComponent<HealthComponent>(element.id_))
-				component_manager_->GetComponent<HealthComponent>(element.id_)->Health -= 20;
+			int Damage = InventorySystem::GetActiveItem(*component_manager_).rarity;
+			HealthSystem::DecreaseHealth(element.id_, Damage, *component_manager_);
 			break;
 		}
 	}
+}
+
+void Window::UpdateTerminal()
+{
+	std::cout << "\033[2J\033[H\033[?25l";
+	std::print("Health {:.>32}\n", HealthSystem::GetHealth(0, *component_manager_));
+	if (!component_manager_->HasComponents<InventoryComponent>(0))
+		return;
+	std::print("{:-<15}Inventory{:->15}\n", "", "");
+	for (int i = 0; i < component_manager_->GetComponent<InventoryComponent>(0)->inventory_.size(); i++)
+	{
+		int damage = component_manager_->GetComponent<InventoryComponent>(0)->inventory_[i].rarity;
+		std::print("Item {:>2}| Rarity:{:>10} | Damage: {:>2}\n", i, InventorySystem::RarityToString(component_manager_->GetComponent<InventoryComponent>(0)->inventory_[i].rarity),damage);
+	}
+	std::print("{:->39}\n", "");
+	int damage = InventorySystem::GetActiveItem(*component_manager_).rarity;
+	std::print("Equipped Rarity:{:>10} | Damage: {:>2}\n", InventorySystem::RarityToString(InventorySystem::GetActiveItem(*component_manager_).rarity),damage);
 }
 

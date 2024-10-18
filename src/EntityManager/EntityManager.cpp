@@ -1,21 +1,18 @@
 #include "EntityManager.h"
 #include "../ComponentManager/ComponentHandler.h"
-#include "../Components & Systems/Health.h"
+#include "../Components & Systems/Misc/Health.h"
 #include "../Components & Systems/Rendering/Mesh.h"
-#include "../Components & Systems/Movement.h"
-#include "../Components & Systems/Position.h"
+#include "../Components & Systems/Position/Movement.h"
+#include "../Components & Systems/Position/Position.h"
 #include "../Components & Systems/Rendering/Render.h"
 
 void EntityManager::AddEntity()
 {
-	*entitiesChanging_ = true;
 	entities_.emplace_back();
-	*entitiesChanging_ = false;
 }
 
 void EntityManager::AddPlayer(glm::vec2 pos, glm::vec2 scale,glm::vec3 color, ComponentManager& cm)
 {
-	*entitiesChanging_ = true;
 	entities_.emplace_back();
 	cm.RegisterComponent<HealthComponent>(entities_.back().id_);
 	cm.RegisterComponent<PositionComponent>(entities_.back().id_);
@@ -28,7 +25,6 @@ void EntityManager::AddPlayer(glm::vec2 pos, glm::vec2 scale,glm::vec3 color, Co
 	cm.GetComponent<MeshPropertyComponent>(entities_.back().id_)->scale = scale;
 
 	MeshGenerationSystem::CreateEntitySquare(entities_.back().id_, pos, scale, color, cm);
-	*entitiesChanging_ = false;
 }
 
 Entity EntityManager::GetEntity(unsigned index) const

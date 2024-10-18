@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
+#include <ranges>
 
 class IComponentHandler
 {
@@ -46,9 +47,13 @@ public:
 			return &components_[entityIdToIndex_[id_]];
 		return nullptr;
 	}
-private:
+	bool HasComponent(unsigned id_)
+	{
+		return entityIdToIndex_.contains(id_);
+	}
 	std::vector<Type> components_;
 	std::unordered_map<unsigned, unsigned> entityIdToIndex_;
+private:
 };
 
 class ComponentManager
@@ -61,6 +66,7 @@ public:
 			componentHandlers_[typeid(Type)] = std::make_unique<ComponentHandler<Type>>();
 		componentHandlers_[typeid(Type)]->AddComponent(id_);
 	}
+
 	template<typename Type>
 	Type* GetComponent(unsigned id_)
 	{
@@ -68,24 +74,29 @@ public:
 			return static_cast<ComponentHandler<Type>*>(componentHandlers_[typeid(Type)].get())->GetComponent(id_);
 		return nullptr;
 	}
+
 	template<typename Type>
 	void RemoveComponent(unsigned id_)
 	{
 		if (componentHandlers_.contains(typeid(Type)))
 			componentHandlers_[typeid(Type)]->RemoveComponent(id_);
 	}
-	template<typename Type>
-	bool HasComponent(unsigned id_)
+	template<typename ...args>
+	bool HasComponents(unsigned id_)
 	{
-		if (componentHandlers_.contains(typeid(Type)))
-			return static_cast<ComponentHandler<Type>*>(componentHandlers_[typeid(Type)].get())->GetComponent(id_) != nullptr;
-		return false;
+		return (componentHandlers_.contains(typeid(args))&&...&&
+			(static_cast<ComponentHandler<args>*>(componentHandlers_[typeid(args)].get())->HasComponent(id_)&&...));
 	}
-	void RemoveAllComponents(unsigned id_)
+	template<typename Type>
+	std::unordered_map<unsigned,unsigned>& GetComponentMap()
 	{
-		for(auto& pair : componentHandlers_)
+		return static_cast<ComponentHandler<Type>*>(componentHandlers_[typeid(Type)].get())->entityIdToIndex_;
+	}
+	void RemoveAllComponents(unsigned id_) const
+	{
+		for(const auto& compHandler : std::views::values(componentHandlers_))
 		{
-			pair.second->RemoveComponent(id_);
+			compHandler->RemoveComponent(id_);
 		}
 	}
 private:

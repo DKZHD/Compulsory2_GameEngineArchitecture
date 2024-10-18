@@ -42,6 +42,9 @@
     <ClCompile Include="src\Components &amp; Systems\AI\AIBehaviour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Components &amp; Systems\Misc\Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ComponentManager\ComponentHandler.h">
@@ -50,16 +53,16 @@
     <ClInclude Include="src\EntityManager\EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components &amp; Systems\Health.h">
+    <ClInclude Include="src\Components &amp; Systems\Misc\Health.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components &amp; Systems\SystemBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components &amp; Systems\Position.h">
+    <ClInclude Include="src\Components &amp; Systems\Position\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Components &amp; Systems\Movement.h">
+    <ClInclude Include="src\Components &amp; Systems\Position\Movement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components &amp; Systems\Rendering\Mesh.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Components &amp; Systems\AI\AIBehaviour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Components &amp; Systems\Misc\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
